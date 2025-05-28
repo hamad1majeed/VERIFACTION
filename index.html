@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #333;
+    }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .valid {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .invalid {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <h1>Certificate Verification</h1>
+  <div class="form-container">
+    <input type="text" id="certificateNumber" placeholder="Enter Certificate Number" />
+    <button onclick="verifyCertificate()">Verify</button>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    const mockData = {
+      "267312-207-353-1bdb9": {
+        name: "Hamad Majeed",
+        course: "HSE Supervisor",
+        issued_date: "2023-10-05"
+      },
+      "123456-789-101-aaaaa": {
+        name: "Riyaz Hammabba",
+        course: "Electrical Safety",
+        issued_date: "2023-09-12"
+      }
+    };
+
+    function verifyCertificate() {
+      const certNumber = document.getElementById("certificateNumber").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      if (mockData[certNumber]) {
+        const data = mockData[certNumber];
+        resultDiv.className = "result valid";
+        resultDiv.innerHTML = `
+          <strong>Certificate Found!</strong><br>
+          Name: ${data.name}<br>
+          Course: ${data.course}<br>
+          Issued Date: ${data.issued_date}
+        `;
+      } else {
+        resultDiv.className = "result invalid";
+        resultDiv.innerHTML = "Certificate not found. Please check the number and try again.";
+      }
+    }
+  </script>
+</body>
+</html>
